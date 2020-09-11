@@ -1,11 +1,11 @@
-package com.example.kotlin
+package com.example.kotlin.recycle
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.kotlin.R
 import kotlinx.android.synthetic.main.activity_layout_manager.*
 
 class LayoutManagerActivity : AppCompatActivity() {
@@ -13,7 +13,7 @@ class LayoutManagerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_layout_manager)
         recycleView.adapter = MyAdapter()
-        recycleView.layoutManager=MyLayoutManager()
+        recycleView.layoutManager= MyLayoutManager()
     }
 }
 

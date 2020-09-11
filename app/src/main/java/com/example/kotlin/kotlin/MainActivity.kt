@@ -1,11 +1,10 @@
-package com.example.kotlin
+package com.example.kotlin.kotlin
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.appcompat.widget.LinearLayoutCompat
-import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.kotlin.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

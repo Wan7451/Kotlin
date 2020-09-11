@@ -1,4 +1,4 @@
-package com.example.kotlin
+package com.example.kotlin.kotlin
 
 open class Test(var txt: String) {
 

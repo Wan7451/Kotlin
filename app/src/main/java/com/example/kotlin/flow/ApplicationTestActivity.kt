@@ -1,8 +1,9 @@
-package com.example.kotlin
+package com.example.kotlin.flow
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.example.kotlin.R
 
 class ApplicationTestActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
