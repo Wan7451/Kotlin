@@ -13,7 +13,7 @@ import com.example.kotlin.R
 
 class ModelFragment : Fragment() {
 
-    //private val mode1 by activityViewModels<MyModel>()
+    private val mode1 by activityViewModels<MyModel>()
     private val mode2 by viewModels<MyModel>()
 
     override fun onCreateView(
@@ -25,7 +25,7 @@ class ModelFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        //mode1.doSomethings()
+        mode1.doSomethings()
         mode2.doSomethings()
         //Log.e(">>>>>>>", "model1 ${mode1.hashCode()}")
         Log.e(">>>>>>>", "model2 ${mode2.hashCode()}")

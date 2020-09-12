@@ -36,8 +36,10 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     //生命周期回调
-    implementation 'androidx.lifecycle:lifecycle-service:2.2.0'
-    implementation 'androidx.lifecycle:lifecycle-process:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-service:2.3.0-alpha03'
+    implementation 'androidx.lifecycle:lifecycle-process:2.3.0-alpha03'
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0-alpha07"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.3.0-alpha07"
     //navigation
     implementation 'androidx.navigation:navigation-fragment-ktx:2.1.0'
     implementation 'androidx.navigation:navigation-ui-ktx:2.1.0'
