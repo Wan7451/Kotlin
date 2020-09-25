@@ -10,17 +10,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name="com.example.kotlin.jetpack.room.DataBaseActivity">
-
+        <activity android:name="com.example.kotlin.jetpack.workmanager.WorkManagerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
 
+        <activity android:name="com.example.kotlin.jetpack.room.DataBaseActivity" />
         <activity android:name="com.example.kotlin.jetpack.livedata.LiveDataActivity" />
         <activity android:name=".jetpack.viewmodel.ViewModelActivity" />
 
