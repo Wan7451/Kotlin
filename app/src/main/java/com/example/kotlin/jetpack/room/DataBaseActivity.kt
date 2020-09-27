@@ -1,15 +1,10 @@
 package com.example.kotlin.jetpack.room
 
-import android.os.AsyncTask
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import com.example.kotlin.R
-import io.reactivex.Scheduler
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 
 class DataBaseActivity : AppCompatActivity() {
 

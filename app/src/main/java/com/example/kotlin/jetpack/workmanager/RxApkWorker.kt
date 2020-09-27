@@ -1,16 +1,10 @@
 package com.example.kotlin.jetpack.workmanager
 
 import android.content.Context
-import androidx.work.CoroutineWorker
 import androidx.work.RxWorker
 import androidx.work.WorkerParameters
 import io.reactivex.Observable
 import io.reactivex.Single
-import io.reactivex.disposables.Disposable
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.withContext
 
 /**
  * Rx worker

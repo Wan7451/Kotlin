@@ -12,6 +12,6 @@ class App : Application() {
         /**
          * 检测 前后台切换的回调
          */
-        ProcessLifecycleOwner.get().lifecycle.addObserver(ProcessObserve(this))
+        //ProcessLifecycleOwner.get().lifecycle.addObserver(ProcessObserve(this))
     }
 }

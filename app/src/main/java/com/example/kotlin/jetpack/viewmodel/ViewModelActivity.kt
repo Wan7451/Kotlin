@@ -3,6 +3,7 @@ package com.example.kotlin.jetpack.viewmodel
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.ViewTreeObserver
 import androidx.activity.viewModels
@@ -20,7 +21,7 @@ class ViewModelActivity : AppCompatActivity() {
         setContentView(R.layout.activity_view_model)
         model.doSomethings()
         Log.e(">>>>>>>>>","activity ${model.hashCode()}")
-        Handler().postDelayed({
+        Handler(Looper.getMainLooper()).postDelayed({
             supportFragmentManager.beginTransaction()
                 .add(ModelFragment(),"test")
                 .commitNowAllowingStateLoss()

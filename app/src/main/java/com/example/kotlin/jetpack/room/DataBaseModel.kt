@@ -5,7 +5,6 @@ import android.os.AsyncTask
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.room.Room
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -15,6 +14,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
 
+@Suppress("DEPRECATION")
 class DataBaseModel(app: Application) : AndroidViewModel(app) {
 
     private var dao: StudentDao? = MyDataBase.instance(getApplication()).studentDao()
