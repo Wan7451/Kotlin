@@ -17,7 +17,8 @@ class ArticleBoundaryCallback(var context: Context) : PagedList.BoundaryCallback
     }
 
     private fun getFirst() {
-        api().articleList(0).subscribeOn(Schedulers.io())
+        page=0
+        api().articleList(page).subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .subscribe(object : Observer<BaseData<BaseList<Article>>> {
                 override fun onSubscribe(d: Disposable) {
@@ -38,13 +39,18 @@ class ArticleBoundaryCallback(var context: Context) : PagedList.BoundaryCallback
             })
     }
 
+    /**
+     * 当数据库中最后一项数据被加载时，则会调用其onItemAtEndLoaded函数
+     */
     override fun onItemAtEndLoaded(itemAtEnd: Article) {
         super.onItemAtEndLoaded(itemAtEnd)
         loadMore()
     }
 
+    private var page = 0
     private fun loadMore() {
-        api().articleList(2).subscribeOn(Schedulers.io())
+        page++
+        api().articleList(page).subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .subscribe(object : Observer<BaseData<BaseList<Article>>> {
                 override fun onSubscribe(d: Disposable) {

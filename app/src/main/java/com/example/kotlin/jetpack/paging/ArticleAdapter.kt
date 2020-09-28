@@ -31,7 +31,8 @@ class ArticleHolder(private val parent: ViewGroup) : RecyclerView.ViewHolder(
             }
         }
         (itemView as? TextView)?.let { v ->
-            v.text = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            v.text = ""
+            v.hint="ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ"
             return
         }
     }
