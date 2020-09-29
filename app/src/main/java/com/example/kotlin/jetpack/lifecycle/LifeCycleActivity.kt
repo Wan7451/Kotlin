@@ -21,6 +21,8 @@ class LifeCycleActivity : AppCompatActivity() {
         val t = Test(this)
         t.lifecycle.addObserver(component)
         t.execute()
+
+        lifecycle.addObserver(T2())
     }
 }
 
