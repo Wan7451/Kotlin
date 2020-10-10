@@ -3,6 +3,7 @@ package com.example.kotlin.jetpack.hilt
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.example.kotlin.App
 import com.example.kotlin.R
 import com.example.kotlin.module.Article
 import com.example.kotlin.module.HiltData
@@ -30,15 +31,26 @@ import javax.inject.Inject
  *  Hilt 仅支持扩展 androidx.Fragment 的 Fragment。
  *  Hilt 不支持保留的 Fragment。
  */
-@AndroidEntryPoint
+@AndroidEntryPoint //创建一个依赖容器，该容器遵循Android类的生命周期
 class HiltActivity : AppCompatActivity() {
 
     @Inject
     lateinit var hilt: HiltData  //由 Hilt 注入的字段不能为私有字段。
 
+    @Inject
+    lateinit var dataSource: DataSource
+
+    @Inject
+    lateinit var article:Article
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hilt)
-        Log.e(">>>>>>>>",hilt.toString())
+        Log.e(">>>>>>>>", hilt.toString())
+
+        dataSource.test()
+
+        Log.e(">>>>>>>>", "hash ${article.hashCode()}")
+
     }
 }

@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName
 @Keep
 data class Article(
     @SerializedName("apkLink")
-    val apkLink: String = "",
+    var apkLink: String = "",
     @SerializedName("audit")
     val audit: Int = 0,
     @SerializedName("author")

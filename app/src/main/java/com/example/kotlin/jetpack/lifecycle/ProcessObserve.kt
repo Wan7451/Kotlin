@@ -64,6 +64,6 @@ class ProcessObserve(var context: Context) : LifecycleObserver {
 
 
     private fun toast(txt: String) {
-        Toast.makeText(context, txt, Toast.LENGTH_SHORT).show()
+        //Toast.makeText(context, txt, Toast.LENGTH_SHORT).show()
     }
 }
