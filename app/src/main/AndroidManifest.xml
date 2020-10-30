@@ -13,11 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name="com.example.kotlin.jetpack.hilt.HiltActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
 
         </activity>
         <activity android:name="com.example.kotlin.jetpack.paging.PagingActivity" />
@@ -37,7 +37,13 @@
         <activity android:name=".jetpack.lifecycle.LifeCycleActivity" />
         <activity android:name=".recycle.LayoutManagerActivity" />
         <activity android:name=".flow.ApplicationTestActivity" />
-        <activity android:name=".kotlin.MainActivity" />
+        <activity android:name=".kotlin.MainActivity" >
+                        <intent-filter>
+                            <action android:name="android.intent.action.MAIN" />
+
+                            <category android:name="android.intent.category.LAUNCHER" />
+                        </intent-filter>
+        </activity>
 
         <service android:name=".jetpack.lifecycle.LifeCycleServicee" />
     </application>
