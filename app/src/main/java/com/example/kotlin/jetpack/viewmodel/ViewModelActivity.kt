@@ -7,6 +7,7 @@ import android.os.Looper
 import android.util.Log
 import android.view.ViewTreeObserver
 import androidx.activity.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewTreeLifecycleOwner
 import androidx.lifecycle.ViewTreeViewModelStoreOwner
 import com.example.kotlin.R
@@ -29,6 +30,7 @@ class ViewModelActivity : AppCompatActivity() {
 
         ViewTreeLifecycleOwner.set(container,this)
         ViewTreeViewModelStoreOwner.set(container,this)
+        ViewModelProvider(this).get(MyModel::class.java)
     }
 
 
