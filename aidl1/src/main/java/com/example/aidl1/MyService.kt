@@ -6,18 +6,16 @@ import android.os.Binder
 import android.os.IBinder
 
 class MyService : Service() {
-    override fun onBind(intent: Intent?): IBinder? {
-        TODO("Not yet implemented")
+
+    override fun onBind(intent: Intent): IBinder {
+        return MyBinder()
     }
 
-//    override fun onBind(intent: Intent): IBinder {
-//        return MyBinder()
-//    }
-//
-//
-//    inner class MyBinder : IMyAidlInterface.Stub() {
-//        override fun getName(): String {
-//            return "name"
-//        }
-//    }
+
+    inner class MyBinder : IMyAidlInterface.Stub() {
+
+        override fun getName(person: Person?): String {
+            return person?.name ?: ""
+        }
+    }
 }

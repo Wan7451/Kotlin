@@ -45,6 +45,12 @@ public class Person implements Parcelable {
         dest.writeString(this.gender);
     }
 
+    public Person(int age, String name, String gender) {
+        this.age = age;
+        this.name = name;
+        this.gender = gender;
+    }
+
     public Person() {
     }
 
