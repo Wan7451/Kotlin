@@ -1,5 +1,4 @@
 include ':aidl2'
 include ':aidl1'
-include ':qqq'
 include ':app'
 rootProject.name = "Kotlin"

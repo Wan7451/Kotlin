@@ -14,7 +14,6 @@
             <option value="$PROJECT_DIR$/aidl1" />
             <option value="$PROJECT_DIR$/aidl2" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/qqq" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
