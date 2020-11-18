@@ -1,3 +1,5 @@
+include ':core'
+include ':application'
 include ':aidl2'
 include ':aidl1'
 include ':app'

@@ -1,4 +1,4 @@
-package aidl1;
+package com.example.aidl1;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -54,7 +54,7 @@ public class Person implements Parcelable {
         this.gender = in.readString();
     }
 
-    public static final Creator<Person> CREATOR = new Creator<Person>() {
+    public static final Parcelable.Creator<Person> CREATOR = new Parcelable.Creator<Person>() {
         public Person createFromParcel(Parcel source) {
             return new Person(source);
         }
