@@ -24,9 +24,10 @@ class MainActivity : AppCompatActivity() {
             override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
                 if (service == null) return
                 val asInterface = IMyAidlInterface.Stub.asInterface(service)
-                val name1 = asInterface.getName(Person(10,"wan7451","male"))
-                Log.e(">>>>>>", "$name1")
-                Log.e(">>>>>>", "${Thread.currentThread().name}")
+//                val name1 = asInterface.addPerson(Person(10,"wan7451","male"))
+//                Log.e(">>>>>>", "${name1.toString()}")
+                asInterface.addPersononly(Person(10, "wan7451", "male"))
+                Log.e(">>>>>> client", "${Thread.currentThread().name}")
             }
 
             override fun onServiceDisconnected(name: ComponentName?) {
