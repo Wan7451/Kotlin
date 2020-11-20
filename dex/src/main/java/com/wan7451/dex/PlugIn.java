@@ -1,8 +1,10 @@
 package com.wan7451.dex;
 
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 
@@ -13,6 +15,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.List;
 
 import dalvik.system.DexClassLoader;
 
@@ -26,8 +29,15 @@ public class PlugIn {
     public static void hookAMS() throws Exception {
 
         //1. 获取ActivityManager的IActivityManagerSingleton对象(类型是Singleton)
-        Class<?> clazz = Class.forName("android.app.ActivityManager");
-        Field iActivityManagerSingletonField = clazz.getDeclaredField("IActivityManagerSingleton");
+        Field iActivityManagerSingletonField = null;
+        //android 10 没有适配
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Class<?> clazz = Class.forName("android.app.ActivityManager");
+            iActivityManagerSingletonField = clazz.getDeclaredField("IActivityManagerSingleton");
+        } else {
+            Class<?> clazz = Class.forName("android.app.ActivityManagerNative");
+            iActivityManagerSingletonField = clazz.getDeclaredField("gDefault");
+        }
         iActivityManagerSingletonField.setAccessible(true);
         Object singleton = iActivityManagerSingletonField.get(null);
         //2. 获取Singleton的mInstance对象(其实是IActivityManager)
@@ -81,7 +91,7 @@ public class PlugIn {
             @Override
             public boolean handleMessage(@NonNull Message msg) {
                 switch (msg.what) {
-                    case 100:
+                    case 100: //android 8
                         try {
                             //ActivityClientRecord
                             Field intentField = msg.obj.getClass().getDeclaredField("intent");
@@ -96,6 +106,29 @@ public class PlugIn {
                             e.printStackTrace();
                         }
                         break;
+                    case 159://android 9
+                        Class<?> transactionClass = msg.obj.getClass();
+                        try {
+                            Field mActivityCallbacksField = transactionClass.getDeclaredField("mActivityCallbacks");
+                            mActivityCallbacksField.setAccessible(true);
+                            List list = (List) mActivityCallbacksField.get(msg.obj);
+                            for (int i = 0; i < list.size(); i++) {
+                                if(list.get(i).getClass().getName()
+                                        .equals("android.app.servertransaction.LaunchActivityItem")){
+                                    Object launchActivityItem = list.get(i);
+                                    Field mIntentProxyField = launchActivityItem.getClass().getDeclaredField("mIntent");
+                                    mIntentProxyField.setAccessible(true);
+                                    Intent intentProxy = (Intent) mIntentProxyField.get(launchActivityItem);
+                                    Intent intent = intentProxy.getParcelableExtra(TARGET_INTENT);
+                                    //取出原始的intent
+                                    if (intent != null) {
+                                        mIntentProxyField.set(msg.obj, intent);
+                                    }
+                                }
+                            }
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
                 }
                 return false;
             }
@@ -131,5 +164,10 @@ public class PlugIn {
         System.arraycopy(pluginDexElements, 0, newElements, hostDexElements.length, pluginDexElements.length);
         //4.替换
         dexElementsField.set(hostPathList, newElements);
+    }
+
+
+    public static void test(Activity activity){
+        activity.getString(R.string.bottom_sheet_behavior)
     }
 }
