@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
@@ -26,8 +28,12 @@ public class PlugIn {
 
     public static final String TARGET_INTENT = "TARGET_INTENT";
 
+    /**
+     * hook点 activity打开
+     *
+     * @throws Exception
+     */
     public static void hookAMS() throws Exception {
-
         //1. 获取ActivityManager的IActivityManagerSingleton对象(类型是Singleton)
         Field iActivityManagerSingletonField = null;
         //android 10 没有适配
@@ -74,7 +80,11 @@ public class PlugIn {
         mInstanceField.set(singleton, mInstanceProxy);
     }
 
-
+    /**
+     * hook点 activity打开
+     *
+     * @throws Exception
+     */
     public static void hookHandler() throws Exception {
         //1. 获取ActivityThread对象
         Class<?> clazz = Class.forName("android.app.ActivityThread");
@@ -113,8 +123,8 @@ public class PlugIn {
                             mActivityCallbacksField.setAccessible(true);
                             List list = (List) mActivityCallbacksField.get(msg.obj);
                             for (int i = 0; i < list.size(); i++) {
-                                if(list.get(i).getClass().getName()
-                                        .equals("android.app.servertransaction.LaunchActivityItem")){
+                                if (list.get(i).getClass().getName()
+                                        .equals("android.app.servertransaction.LaunchActivityItem")) {
                                     Object launchActivityItem = list.get(i);
                                     Field mIntentProxyField = launchActivityItem.getClass().getDeclaredField("mIntent");
                                     mIntentProxyField.setAccessible(true);
@@ -122,11 +132,11 @@ public class PlugIn {
                                     Intent intent = intentProxy.getParcelableExtra(TARGET_INTENT);
                                     //取出原始的intent
                                     if (intent != null) {
-                                        mIntentProxyField.set(msg.obj, intent);
+                                        mIntentProxyField.set(launchActivityItem, intent);
                                     }
                                 }
                             }
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                 }
@@ -140,6 +150,13 @@ public class PlugIn {
         mCallbackField.set(mH, callback);
     }
 
+    /**
+     * 加载apk插件
+     *
+     * @param context 上线文
+     * @param dexPath apk路径
+     * @throws Exception
+     */
     public static void loadClass(Context context, String dexPath) throws Exception {
         Class<?> classLoaderClass = Class.forName("dalvik.system.BaseDexClassLoader");
         Field pathListField = classLoaderClass.getDeclaredField("pathList");
@@ -167,7 +184,27 @@ public class PlugIn {
     }
 
 
-    public static void test(Activity activity){
-        activity.getString(R.string.bottom_sheet_behavior)
+    private static Resources mResource;
+
+    public static Resources getResource(Context context) {
+        if (mResource == null) {
+            try {
+                mResource = loadResources(context.getApplicationContext(), "");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return mResource;
+    }
+
+    private static Resources loadResources(Context context, String apkPath) throws Exception {
+        //1. 新建AssetManager
+        AssetManager assetManager = AssetManager.class.newInstance();
+        //2. 添加插件资源
+        Method addAssetPath = assetManager.getClass().getMethod("addAssetPath", String.class);
+        addAssetPath.invoke(assetManager, apkPath);
+        //3. 创建Resources,传入创建的AssetManager
+        Resources resources = context.getResources();
+        return new Resources(assetManager, resources.getDisplayMetrics(), resources.getConfiguration());
     }
 }
